@@ -350,6 +350,39 @@ func (c *Client) Add(ctx context.Context, cid cid.Cid, opts ...AddOption) (PinSt
 	return &pinStatusObject{result}, nil
 }
 
+func (c *Client) AddIpns(ctx context.Context, ipnsname string, cid cid.Cid, opts ...AddOption) (PinStatusGetter, error) {
+	settings := new(addSettings)
+	for _, o := range opts {
+		if err := o(settings); err != nil {
+			return nil, err
+		}
+	}
+
+	adder := c.client.PinsApi.PinsPost(ctx)
+	p := openapi.Pin{
+		Cid:  cid.Encode(getCIDEncoder()),
+		Path: ipnsname,
+	}
+
+	if len(settings.origins) > 0 {
+		p.SetOrigins(settings.origins)
+	}
+	if settings.meta != nil {
+		p.SetMeta(settings.meta)
+	}
+	if len(settings.name) > 0 {
+		p.SetName(settings.name)
+	}
+
+	result, httpresp, err := adder.Pin(p).Execute()
+	if err != nil {
+		err := httperr(httpresp, err)
+		return nil, err
+	}
+
+	return &pinStatusObject{result}, nil
+}
+
 func (c *Client) GetStatusByID(ctx context.Context, pinID string) (PinStatusGetter, error) {
 	getter := c.client.PinsApi.PinsRequestidGet(ctx, pinID)
 	result, httpresp, err := getter.Execute()

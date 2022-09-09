@@ -17,6 +17,8 @@ import (
 type Pin struct {
 	// Content Identifier (CID) to be pinned recursively
 	Cid string `json:"cid"`
+
+	Path string `json:"path"`
 	// Optional name for pinned data; can be used for lookups later
 	Name *string `json:"name,omitempty"`
 	// Optional list of multiaddrs known to provide the data
