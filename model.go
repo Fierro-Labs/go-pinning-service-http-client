@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/Fierro-Labs/go-pinning-service-http-client/openapi"
 	"github.com/ipfs/go-cid"
-	"github.com/ipfs/go-pinning-service-http-client/openapi"
 	"github.com/multiformats/go-multiaddr"
 )
 

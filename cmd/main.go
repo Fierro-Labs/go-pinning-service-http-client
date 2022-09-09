@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
+	pinclient "github.com/Fierro-Labs/go-pinning-service-http-client"
 	"github.com/ipfs/go-cid"
-	pinclient "github.com/ipfs/go-pinning-service-http-client"
 )
 
 func main() {

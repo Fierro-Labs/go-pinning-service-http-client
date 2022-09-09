@@ -1,4 +1,4 @@
-module github.com/ipfs/go-pinning-service-http-client
+module github.com/Fierro-Labs/go-pinning-service-http-client
 
 go 1.18
 
